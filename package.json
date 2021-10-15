@@ -1,0 +1,25 @@
+{
+  "name": "alibazon-ecom",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www.js"
+  },
+  "dependencies": {
+    "@sentry/node": "^6.13.3",
+    "@sentry/tracing": "^6.13.3",
+    "axios": "^0.23.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-validator": "^6.13.0",
+    "http-errors": "~1.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}

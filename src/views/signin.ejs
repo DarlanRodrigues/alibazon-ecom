@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <head>
+      <% include partials/header.ejs %>
+    </head>
+    <main>
+      <h1>Registration</h1>
+
+      <% if(!errorsMessages && errorsMessages.length !== 0) { %>
+        <% errorsMessages.forEach(function(error) { %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= error.msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+        <% }) %>
+      <% } %>
+      <form method="POST" action="/auth/signin">
+        <div class="form-group">
+          <label for="completeName">Complete name</label>
+          <input type="text" class="form-control" id="completeName" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" required>
+        </div>
+        <div class="form-group">
+          <label for="passwordConfirm">Confirm password</label>
+          <input type="password" class="form-control" id="passwordConfirm" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Sign In</button>
+      </form>
+    </main>
+  </body>
+  <% include partials/footer.ejs %>
+</html>
