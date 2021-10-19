@@ -16,16 +16,15 @@ init({
   tracesSampleRate: 1.0,
 });
 
-import homeRouter from './routes/Home.route.js';
-import usersRouter from './routes/users.js';
-import productsRouter from './routes/Product.route.js';
-import categoryRouter from './routes/Category.route.js';
-import authRouter from './routes/Auth.route.js';
+import homeRouter from './Routes/Home.route.js';
+import productsRouter from './Routes/Product.route.js';
+import categoryRouter from './Routes/Category.route.js';
+import authRouter from './Routes/Auth.route.js';
 
 var app = express();
 
 // view engine setup
-app.set('views', join(__dirname, 'views'));
+app.set('views', join(__dirname, 'Views'));
 app.set('view engine', 'ejs');
 
 
@@ -35,7 +34,6 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use(['/', '/home'], homeRouter);
-app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/category', categoryRouter);
 app.use('/auth', authRouter);
