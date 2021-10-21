@@ -19,6 +19,7 @@ init({
 import homeRouter from './Routes/Home.route.js';
 import productsRouter from './Routes/Product.route.js';
 import categoryRouter from './Routes/Category.route.js';
+import productRouter from './Routes/Product.route.js';
 import authRouter from './Routes/Auth.route.js';
 
 var app = express();
@@ -36,6 +37,7 @@ app.use(express.static('public'));
 app.use(['/', '/home'], homeRouter);
 app.use('/products', productsRouter);
 app.use('/category', categoryRouter);
+app.use('/product', productRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
