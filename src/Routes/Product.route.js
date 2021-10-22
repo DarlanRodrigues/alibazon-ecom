@@ -1,11 +1,16 @@
 import { Router } from 'express';
+import { getCategoryById } from '../Controllers/Category.controller.js';
 import { getAllProducts, getProductsByCategoryId } from '../Controllers/Product.controller.js';
+
 var router = Router();
 
 router.get('/list/:parentCategory', async (req, res, next) => {
+    const category = await getCategoryById(req.params.parentCategory);
+    const products = await getProductsByCategoryId(req.params.parentCategory);
+
     res.render('productsList', {
         title: req.params.parentCategory,
-        products: await getProductsByCategoryId()
+        products: products
     });
 });
 

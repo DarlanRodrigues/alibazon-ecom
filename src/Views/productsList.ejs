@@ -11,19 +11,30 @@
       <% include partials/header.ejs %>
     </head>
     <main>
-      <div class="container">
-        <div class="row">
+      <div class="container-fluid mt-5 mb-5">
+        <div class="d-flex justify-content-between row">
           <% products.forEach((product, key) => {%>
-            <div class="col-sm">
-              <div><%= product.name %></div>
-              <div><%= product.page_description %></div>
-              <div><span><%= product.currency %></span><%= product. price %><span></span></div>
-              <a class="btn btn-primary" href="/product/<%= product.id %>" role="button">Link</a>
+            <div class="row p-2 bg-white border rounded mt-2" style="width: 50%;">
+              <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/QpjAiHq.jpg"></div>
+              <div class="col-md-9 mt-1">
+                <h5><%= product.name %></h5>
+                <div class="d-flex flex-row">
+                  <p class="text-justify mb-5"><%= product.page_description %></p>
+                  
+                  <div class="align-items-center align-content-center col-md-5 border-left mt-1">
+                    <div class="d-flex flex-column">
+                      <a class="btn btn-primary btn-sm" href="/product/<%= product.id %>" role="button">Details</a>
+                      <a class="btn btn-outline-primary btn-sm mt-2" href="#" role="button">Add to wishlist</a>
+                    </div>
+                  </div>
+                </div>
+                <h6 class="mr-1"><%= product.currency %> <%= product. price %></h6>
+              </div>
             </div>
           <% }); %>
         </div>
       </div>
-    </main>  
+    </main>
   </body>
   <% include partials/footer.ejs %>
 </html>

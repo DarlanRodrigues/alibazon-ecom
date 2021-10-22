@@ -13,8 +13,8 @@ router.get('/*', async (req, res, next) => {
   const subCategory     = reqParams.at(-1);
   const lastSubCategory = getProductsByCategoryId(subCategory);
   
-  if(!lastSubCategory.hasOwnProperty('error') && subCategory.split('-').length === 3){
-    res.redirect(`/product/list/${subCategory}`)  
+  if(!lastSubCategory.hasOwnProperty('error') && subCategory.split('-').length !== 1){
+    res.redirect(`/product/list/${subCategory}`);
   }
   res.render('categories', { 
     parentCategory: await getCategoryById(parentCategory),
