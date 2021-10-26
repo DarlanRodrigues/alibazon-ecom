@@ -5,9 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <head>
-      <% include partials/header.ejs %>
-    </head>
+    <% include partials/header.ejs %>
     <main>
       <% categories.forEach((category, key) => {%>
         <h1><%= category.name %></h1>
