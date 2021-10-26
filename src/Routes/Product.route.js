@@ -15,6 +15,15 @@ router.get('/list/:parentCategory', async (req, res, next) => {
     });
 });
 
+router.get('/list/search/:searchText', async (req, res, next) => {
+    const products = await getProductsByCategoryId(req.params.parentCategory);
+
+    res.render('productsList', {
+        title: req.params.parentCategory,
+        products: products
+    });
+});
+
 router.get('/:productId', async (req, res, next) => {
     const products = await getProductsById(req.params.productId);
 
@@ -28,4 +37,5 @@ router.get('/:productId', async (req, res, next) => {
         variantionColor: products[0].variation_attributes.find( el => el.id === 'color').values
     });
 });
+
 export default router;
