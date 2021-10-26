@@ -9,11 +9,12 @@ router.get('/*', async (req, res, next) => {
   const reqParams = req.params[0].split('/');
 
   // TODO: Check if parentCategory exist and subcategory belongs to it. 
-  const parentCategory  = reqParams.at(-2) || reqParams.at(-1);
-  const subCategory     = reqParams.at(-1);
-  const lastSubCategory = getProductsByCategoryId(subCategory);
   
-  if(!lastSubCategory.hasOwnProperty('error') && subCategory.split('-').length !== 1){
+  const parentCategory  = reqParams[reqParams.length - 2] || reqParams[reqParams.length - 1];
+  const subCategory     = reqParams[reqParams.length - 1];
+  const lastSubCategory = await getProductsByCategoryId(subCategory);
+  
+  if(!lastSubCategory.hasOwnProperty('error') && subCategory.split('-').length === 3){
     res.redirect(`/product/list/${subCategory}`);
   }
   res.render('categories', { 
