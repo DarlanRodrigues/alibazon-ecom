@@ -1,21 +1,20 @@
 import { Router } from 'express';
 import { getCategoryById } from '../Controllers/Category.controller.js';
-import { getProductsById, getProductsByCategoryId } from '../Controllers/Product.controller.js';
+import { getAllProducts, getProductsById, getProductsByCategoryId } from '../Controllers/Product.controller.js';
 
-var router = Router();
+const router = Router();
 
-router.get('/list/:parentCategory', async (req, res, next) => {
-    // For header category
-    // const category = await getCategoryById(req.params.parentCategory);
-    const products = await getProductsByCategoryId(req.params.parentCategory);
+router.get('/list/search/', async (req, res, next) => {
+    const allProducts = await getAllProducts();
+    const products    = allProducts.filter(elem => elem.name.toUpperCase().includes(req.query.searchText.toUpperCase()));
 
     res.render('productsList', {
-        title: req.params.parentCategory,
+        title: `Search products`,
         products: products
     });
 });
 
-router.get('/list/search/:searchText', async (req, res, next) => {
+router.get('/list/:parentCategory', async (req, res, next) => {
     const products = await getProductsByCategoryId(req.params.parentCategory);
 
     res.render('productsList', {
