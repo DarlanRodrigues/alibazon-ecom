@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= pageTitle  %></title>
+    <title><%= product.page_title  %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/javascript/productPage.js"></script>
   </head>
   <body>
     <% include partials/header.ejs %>
@@ -9,13 +12,15 @@
         <div class="container-fluid card mt-2 mb-3">
             <div class="d-flex flex-row">
                 <div class="container">
-                    <img class="img-fluid p-1" id="productImg" src="https://i.imgur.com/KZpuufK.jpg" />
+                    <% product.variantsImg.forEach( (img, index) => { %>
+                        <img class="img-fluid p-1 d-none productImg" data-variation_value="<%= img.variation_value %>" src="/images/<%= img.images[0].link %>" alt="<%= img.images[0].alt %>" />
+                    <% }); %>
                 </div>
                 <div class="container">
                     <div>
-                        <h1><%= productName %></h1>
-                        <p><%= productDescription  %></p>
-                        <h4><%= `Price: ${productCurrency} ${productPrice}` %></h4>
+                        <h1><%= product.name %></h1>
+                        <p><%= product.description  %></p>
+                        <h4><%= `Price: ${product.currency} ${product.price}` %></h4>
                     </div>
                     <div> 
                         <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
@@ -23,18 +28,21 @@
                     </div>
                     <div>
                         <h4>Variations</h4>
+
+                        <h6>Sizes:</h6>
                         <div class="d-flex flex-row">
-                            <% variantionColor.forEach( (elem, index) => { %>
+                            <% product.sizes.forEach( (elem, index) => { %>
                                 <label class="btn btn-secondary m-1">
-                                    <input type="radio" class="btn-check" name="variantionColor" value="<%= elem.value %>" autocomplete="off" <% if(index === 0){ %> checked <% } %> >
+                                    <input type="radio" class="btn-check radio-size" name="variantionSize" value="<%= elem.value %>" autocomplete="off" <% if(index === 0){ %> checked <% } %> >
                                     <span><%= elem.name %></span>
                                 </label>
                             <% }); %>
                         </div>
+                        <h6>Color:</h6>
                         <div class="d-flex flex-row">
-                            <% variantionSize.forEach( (elem, index) => { %>
+                            <% product.colors.forEach( (elem, index) => { %>
                                 <label class="btn btn-secondary m-1">
-                                    <input type="radio" class="btn-check" name="variantionSize" value="<%= elem.value %>" autocomplete="off" <% if(index === 0){ %> checked <% } %> >
+                                    <input type="radio" class="btn-check radio-color" name="variantionColor" value="<%= elem.value %>" autocomplete="off" <% if(index === 0){ %> checked <% } %> >
                                     <span><%= elem.name %></span>
                                 </label>
                             <% }); %>

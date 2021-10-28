@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { getCategoryById } from '../Controllers/Category.controller.js';
-import { getAllProducts, getProductsById, getProductsByCategoryId } from '../Controllers/Product.controller.js';
+import { getAllProducts, getProductsById, getProductsByCategoryId, structureProductVariants } from '../Controllers/Product.controller.js';
 
 const router = Router();
 
@@ -24,16 +23,11 @@ router.get('/list/:parentCategory', async (req, res, next) => {
 });
 
 router.get('/:productId', async (req, res, next) => {
-    const products = await getProductsById(req.params.productId);
-
+    const products              = await getProductsById(req.params.productId);
+    const productVariantInfo    = structureProductVariants(products[0]);
+    
     res.render('product', {
-        pageTitle: products[0].page_title,
-        productName: products[0].name,
-        productDescription: products[0].page_description,
-        productCurrency: products[0].currency,
-        productPrice: products[0].price,
-        variantionSize: products[0].variation_attributes.find( el => el.id === 'size').values,
-        variantionColor: products[0].variation_attributes.find( el => el.id === 'color').values
+        product: productVariantInfo
     });
 });
 

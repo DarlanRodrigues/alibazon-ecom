@@ -46,3 +46,22 @@ export const getProductsByCategoryId = async (categoryId) =>{
         return {};
     }
 }
+
+
+export const structureProductVariants = (product) =>{
+    const sizes         = product.variation_attributes.find( el => el.id === 'size').values;
+    const variantsImg   = product.image_groups.filter(imgFilted => imgFilted.view_type === "large");
+    let colors          = product.variation_attributes.find( el => el.id === 'color').values;
+    colors              = colors.filter( color => variantsImg.find(variant => variant.variation_value === color.value))
+
+    return {
+        page_title: product.page_title,
+        name: product.name,
+        description: product.page_description,
+        currency: product.currency,
+        price: product.price,
+        sizes: sizes,
+        colors: colors,
+        variantsImg: variantsImg
+    }
+}
