@@ -12,9 +12,26 @@ export const signUp = async (newUser) => {
             password: newUser.password,
             secretKey: config.osf_api.secret_key
         });
-        return signup.status;
+
+        return signup;
     } catch(error){
-        captureException(error);
-        return {};
+        captureException(error.response);
+        return error.response;
+    }
+}
+
+
+export const signIn = async (newUser) => {
+    try {
+        const signin = await axios.post(`/auth/signin`, {   
+            email: newUser.email,
+            password: newUser.password,
+            secretKey: config.osf_api.secret_key
+        });
+
+        return signin;
+    } catch(error){
+        captureException(error.response);
+        return error.response;
     }
 }

@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import { init, startTransaction, captureException } from '@sentry/node';
 import Tracing from "@sentry/tracing";
-import config from "../config.js"
-
+import config from "../config.js";
+import { loggedInfo } from './Middlewares/Auth.middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -30,9 +30,10 @@ app.set('view engine', 'ejs');
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(loggedInfo)
 
 app.use(['/', '/home'], homeRouter);
 app.use('/products', productsRouter);

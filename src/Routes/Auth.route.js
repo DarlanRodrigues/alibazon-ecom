@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { signUp } from '../Controllers/Auth.controller.js';
-import { body, check, validationResult } from 'express-validator';
+import { signIn, signUp } from '../Controllers/Auth.controller.js';
+import { body, validationResult } from 'express-validator';
 import { User } from '../Models/User.js';
+
 const router = Router();
 
 router.get('/signup', async (req, res, next) => {
@@ -25,19 +26,78 @@ router.post('/signup', [
         return true;
       })
   ]
-, (req, res, next)=> {
+, async (req, res, next)=> {
     let { errors } = validationResult(req)
   
     if(errors.length !== 0) {
-        let errorsMessages = errors.map(a => a.msg);
-        //Remove duplicates messages
-        errorsMessages = [...new Set(errorsMessages)];
-        res.render('signup', {
-          errorsMessages: errorsMessages
-        })
-    }else{
-      signUp(new User(req.body.completeName, req.body.email, req.body.password));
-      res.redirect('/');
+      let errorsMessages = errors.map(a => a.msg);
+      //Remove duplicates messages
+      errorsMessages = [...new Set(errorsMessages)];
+      res.render('signup', {
+        errorsMessages: errorsMessages
+      })
     }
-})
+    const { status, data } = await signUp(new User(req.body.completeName, req.body.email, req.body.password ));
+
+    if(status === 200){
+      res.cookie("logged_user", data, {
+        httpOnly: true,
+        maxAge: 1800000,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: 'lax'
+      }).status(200).redirect('/');
+    }else{
+      res.render('signup', {
+        errorsMessages: [data.error]
+      })
+    }
+});
+
+
+router.get('/signin', async (req, res, next) => {
+    res.render('signin', { });
+});
+
+
+router.post('/signin', [
+  body('email', 'Email is not valid')
+    .isEmail()
+    .normalizeEmail(),
+  body('password', 'Password must be minimum 5 characters')
+    .isLength({ min: 5 })
+], async (req, res, next) => {
+  let { errors } = validationResult(req)
+  
+  if(errors.length !== 0) {
+    let errorsMessages = errors.map(a => a.msg);
+    //Remove duplicates messages
+    errorsMessages = [...new Set(errorsMessages)];
+    res.render('signin', {
+      errorsMessages: errorsMessages
+    })
+  }
+
+  const { status, data } = await signIn(new User('', req.body.email, req.body.password ));
+
+  if(status === 200){
+    res.cookie("logged_user", data, {
+      httpOnly: true,
+      maxAge: 1800000,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: 'lax'
+    }).status(200).redirect('/');
+  }else{
+    res.render('signin', {
+      errorsMessages: [data.error]
+    })
+  }
+});
+
+
+router.post('/logout',  (req, res, next) => {
+  res
+    .clearCookie("logged_user")
+    .status(200)
+    .redirect('/');
+});
 export default router;
