@@ -9,7 +9,10 @@ router.get('/list/search/', async (req, res, next) => {
 
     res.render('productsList', {
         title: `Search products`,
-        products: products
+        products: products,
+        breadcrumb: [
+            { item: 'Products Search', href: ''}
+        ]
     });
 });
 
@@ -18,7 +21,11 @@ router.get('/list/:parentCategory', async (req, res, next) => {
 
     res.render('productsList', {
         title: req.params.parentCategory,
-        products: products
+        products: products,
+        breadcrumb: [
+            { item: 'Products List', href: ''},
+            { item: req.params.parentCategory.replace(/-/g, ' '), href: `/product/list/${req.params.parentCategory}`}
+        ]
     });
 });
 
@@ -27,7 +34,11 @@ router.get('/:productId', async (req, res, next) => {
     const productVariantInfo    = structureProductVariants(products[0]);
     
     res.render('product', {
-        product: productVariantInfo
+        product: productVariantInfo,
+        breadcrumb: [
+            { item: 'Products', href: ''},
+            { item: productVariantInfo.name, href: `/products/${productVariantInfo.id}`}
+        ]
     });
 });
 

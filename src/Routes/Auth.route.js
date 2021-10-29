@@ -6,7 +6,11 @@ import { User } from '../Models/User.js';
 const router = Router();
 
 router.get('/signup', async (req, res, next) => {
-  res.render('signup', { });
+  res.render('signup', { 
+    breadcrumb: [
+      { item: 'Sign Up', href: '/auth/signup' }
+    ]
+  });
 });
 
 router.post('/signup', [
@@ -34,7 +38,10 @@ router.post('/signup', [
       //Remove duplicates messages
       errorsMessages = [...new Set(errorsMessages)];
       res.render('signup', {
-        errorsMessages: errorsMessages
+        errorsMessages: errorsMessages,
+        breadcrumb: [
+          { item: 'Sign Up', href: '/auth/signup' }
+        ]
       })
     }
     const { status, data } = await signUp(new User(req.body.completeName, req.body.email, req.body.password ));
@@ -48,14 +55,21 @@ router.post('/signup', [
       }).status(200).redirect('/');
     }else{
       res.render('signup', {
-        errorsMessages: [data.error]
+        errorsMessages: [data.error],
+        breadcrumb: [
+          { item: 'Sign Up', href: '/auth/signup' }
+        ]
       })
     }
 });
 
 
 router.get('/signin', async (req, res, next) => {
-    res.render('signin', { });
+    res.render('signin', {
+      breadcrumb: [
+        { item: 'Sign In', href: '/auth/signin' }
+      ]
+    });
 });
 
 
@@ -73,7 +87,10 @@ router.post('/signin', [
     //Remove duplicates messages
     errorsMessages = [...new Set(errorsMessages)];
     res.render('signin', {
-      errorsMessages: errorsMessages
+      errorsMessages: errorsMessages,
+      breadcrumb: [
+        { item: 'Sign In', href: '/auth/signin' }
+      ]
     })
   }
 
@@ -88,7 +105,10 @@ router.post('/signin', [
     }).status(200).redirect('/');
   }else{
     res.render('signin', {
-      errorsMessages: [data.error]
+      errorsMessages: [data.error],
+      breadcrumb: [
+        { item: 'Sign In', href: '/auth/signin' }
+      ]
     })
   }
 });

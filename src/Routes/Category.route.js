@@ -7,6 +7,13 @@ var router = Router();
 
 router.get('/*', async (req, res, next) => {
   const reqParams = req.params[0].split('/');
+  const breadcrumb = 
+    reqParams.map((item, index) => {
+      return {
+        item: item.replace(/-/g, ' '),
+        href: '/category/'+ reqParams.slice(0, index +1 ).join('/')
+      }
+    });
 
   // TODO: Check if parentCategory exist and subcategory belongs to it. 
   
@@ -21,7 +28,9 @@ router.get('/*', async (req, res, next) => {
     parentCategory: await getCategoryById(parentCategory),
     categories: await getCategoriesByParentId(subCategory),
     categorypath: req.path,
-    existsSync: existsSync
+    breadcrumb: breadcrumb,
+    existsSync: existsSync,
+    
   });
 });
 

@@ -56,6 +56,7 @@ export const structureProductVariants = (product) =>{
     colors              = colors.filter( color => variantsImg.find(variant => variant.variation_value === color.value))
 
     return {
+        id: product.id,
         page_title: product.page_title,
         name: product.name,
         description: product.page_description,

@@ -27,6 +27,13 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
-  
-  
-</nav>  
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <% typeof breadcrumb !== "undefined" && breadcrumb.forEach((element, key) => {%>
+      <li class="text-capitalize breadcrumb-item" aria-current="page"><a href="<%= ( element.href === '')? '#' : element.href %>"><%= element.item %></a></li>
+    <% }) %>
+    
+  </ol>
+</nav>

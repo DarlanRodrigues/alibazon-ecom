@@ -1,0 +1,1 @@
+$(".btn-add-wishlist").click();
