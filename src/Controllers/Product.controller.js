@@ -12,7 +12,7 @@ export const getAllProducts = async () =>{
         });
         return products.data;
     } catch(error){
-        // TODO: Sentry error logging
+        new Error(error.response);
         return {};
     }
 }
@@ -27,7 +27,7 @@ export const getProductsById = async (productId) =>{
         });
         return products.data;
     } catch(error){
-        // TODO: Sentry error logging
+        new Error(error.response);
         return {};
     }
 }
@@ -40,10 +40,11 @@ export const getProductsByCategoryId = async (categoryId) =>{
                 primary_category_id: categoryId
             }
         });
+
         return products.data;
     } catch(error){
-        // TODO: Sentry error logging
-        return {};
+        new Error(error.response);
+        return error.response;
     }
 }
 

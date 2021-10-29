@@ -14,7 +14,7 @@ router.get('/*', async (req, res, next) => {
   const subCategory     = reqParams[reqParams.length - 1];
   const lastSubCategory = await getProductsByCategoryId(subCategory);
   
-  if(!lastSubCategory.hasOwnProperty('error') && subCategory.split('-').length === 3){
+  if(lastSubCategory.status !== 400){
     res.redirect(`/product/list/${subCategory}`);
   }
   res.render('categories', { 
