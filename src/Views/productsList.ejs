@@ -15,7 +15,7 @@
           <div class="d-flex justify-content-between row">
             <% products.forEach((product, key) => {%>
               <div class="row p-2 bg-white border rounded mt-2" style="width: 50%;">
-                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/QpjAiHq.jpg"></div>
+                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="/images/<%= product.image_groups.find(el => el.view_type === 'medium').images[0].link %>" alt="<%= product.image_groups.find(el => el.view_type === 'medium').images[0].alt %>"></div>
                 <div class="col-md-9 mt-1">
                   <h5><%= product.name %></h5>
                   <div class="d-flex flex-row">
@@ -23,8 +23,12 @@
                     
                     <div class="align-items-center align-content-center col-md-5 border-left mt-1">
                       <div class="d-flex flex-column">
-                        <a class="btn btn-primary btn-sm" href="/product/<%= product.id %>" role="button">Details</a>
-                        <a class="btn btn-outline-primary btn-sm mt-2" href="#" role="button">Add to wishlist</a>
+                        <a class="btn btn-primary" href="/product/<%= product.id %>" role="button">Details</a>
+                        <% if( typeof locals.loggedUser !== 'undefined') { %>
+                          <a class="btn btn-outline-warning mt-1 btn-add-wishlist" data-product_id=<%= product.id %> data-product_variant_id=<%= product.variants[0].product_id %> data-product_quantity="1" role="button">Add to wishlist</a>
+                          <a class="btn btn-success mt-1 btn-add-cart" href="#" role="button">Add to cart</a>
+                        <% } %>
+                        
                       </div>
                     </div>
                   </div>
