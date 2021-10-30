@@ -12,7 +12,7 @@ export const getAllCategories = async () => {
         });
         return categories.data;
     } catch(error){
-        // TODO: Sentry error logging
+        new Error(error.response);
         return {};
     }
 }
@@ -27,7 +27,7 @@ export const getCategoriesByParentId = async (parentId = 'root') => {
 
         return categories.data;
     } catch(error){
-        // TODO: Sentry error logging
+        new Error(error.response);
         return {};
     }
 }
@@ -43,7 +43,7 @@ export const getCategoryById = async (categoryId = 'root') => {
 
         return category.data;
     } catch(error){
-        // TODO: Sentry error logging
+        new Error(error.response);
         return {};
     }
 }

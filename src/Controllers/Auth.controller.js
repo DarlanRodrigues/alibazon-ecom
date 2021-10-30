@@ -15,7 +15,7 @@ export const signUp = async (newUser) => {
 
         return signup;
     } catch(error){
-        captureException(error.response);
+        new Error(error.response);
         return error.response;
     }
 }
@@ -31,7 +31,7 @@ export const signIn = async (newUser) => {
 
         return signin;
     } catch(error){
-        captureException(error.response);
+        new Error(error.response);
         return error.response;
     }
 }
