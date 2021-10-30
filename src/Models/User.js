@@ -26,3 +26,5 @@ export class User {
         this._password = newPassword;
     }
 }
+
+export default User;
