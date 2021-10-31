@@ -20,6 +20,8 @@ import homeRouter from './Routes/Home.route.js';
 import categoryRouter from './Routes/Category.route.js';
 import productRouter from './Routes/Product.route.js';
 import authRouter from './Routes/Auth.route.js';
+import profileRouter from './Routes/Profile.route.js';
+import cartRouter from './Routes/Cart.route.js';
 
 var app = express();
 
@@ -37,6 +39,8 @@ app.use(loggedInfo)
 app.use(['/', '/home'], homeRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
+app.use('/profile', profileRouter);
+app.use('/cart', cartRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler

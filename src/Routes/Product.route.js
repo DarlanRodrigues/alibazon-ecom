@@ -20,7 +20,7 @@ router.get('/list/:parentCategory', async (req, res, next) => {
     const products = await getProductsByCategoryId(req.params.parentCategory);
 
     res.render('productsList', {
-        title: req.params.parentCategory,
+        title: req.params.parentCategory.replace(/-/g, ' '),
         products: products,
         breadcrumb: [
             { item: 'Products List', href: ''},

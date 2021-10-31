@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/javascript/productCart.js"></script>
+  </head>
+  <body>
+
+    <% include partials/header.ejs %>
+    <main>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="border card">
+                    <% include partials/cart.ejs %>
+                </div>
+            </div>
+            <div class="col-md-4 border card">
+                <div class="card-body">
+                    <h5 class="card-title">User Info</h5>
+                    <p class="card-text">Name: <%= locals.loggedUser.user.name %></p>
+                    <p class="card-text">Email: <%= locals.loggedUser.user.email %></p>
+                    <p class="card-text">Registered : <%= new Date(locals.loggedUser.user.createdAt) %></p>
+                </div>
+            </div>
+          </div>
+    </main>
+  </body>
+  <% include partials/footer.ejs %>
+</html>

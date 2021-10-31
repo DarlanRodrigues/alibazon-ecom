@@ -1,0 +1,32 @@
+<div class="container">
+    <% if(!cartHasItems){ %>
+      <p class="blockquote text-center">No products on cart</p>
+    <% }else{ %>
+        <div class="border card">
+            <h3>Cart:</h3>
+            <p class="blockquote text-center">Total number of items: <%= totalItems %></p>
+            <p class="blockquote text-center">Total price of items: USD <%= totalPrice %></p>
+        </div>
+        <div class="">
+                <% productsCart.forEach((product, key) => {%>
+                    <div class="row bg-white border rounded mt-2">
+                        <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="/images/<%= product.img.link %>" alt="<%= product.img.alt %>"></div>
+                        <div class="col-md-9 mt-1">
+                        <h5><%= product.info.name %></h5>
+                        <div class="d-flex flex-row">
+                            <p class="text-justify mb-5"><%= product.info.description %></p>
+                            
+                            <div class="align-items-center align-content-center col-md-5 border-left mt-1">
+                            <div class="d-flex flex-column">
+                                <a class="btn btn-primary" href="/product/<%= product.info.id %>" role="button">Details</a>
+                                <a class="btn btn-danger mt-1 btn-remove-cart" data-product_id=<%= product.info.id %> data-product_variant_id=<%= product.variant.product_id %> href="#" role="button">Remove from cart</a>
+                            </div>
+                            </div>
+                        </div>
+                        <h6 class="mr-1"><%= product.currency %> <%= product. price %></h6>
+                        </div>
+                    </div>
+                <% }); %>
+        </div>
+    <% } %>
+</div>
