@@ -23,8 +23,9 @@
                         <h4><%= `Price: ${product.currency} ${product.price}` %></h4>
                     </div>
                     <div> 
-                        <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
-                        <button class="btn btn-warning btn-long buy">Buy it Now</button>
+                        <% if( typeof locals.loggedUser !== 'undefined') { %>
+                            <a class="btn btn-success mt-1 btn-add-cart" data-product_id=<%= product.id %> data-product_variant_id=<%= (typeof product.variants[0] !== "undefined")? product.variants[0].product_id : '' %> data-product_quantity="1" href="#" role="button">Add to cart</a>
+                        <% } %>
                     </div>
                     <div>
                         <h4>Variations</h4>

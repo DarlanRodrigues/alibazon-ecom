@@ -64,6 +64,7 @@ export const structureProductVariants = (product) =>{
         price: product.price,
         sizes: sizes,
         colors: colors,
-        variantsImg: variantsImg
+        variantsImg: variantsImg,
+        variants: product.variants
     }
 }

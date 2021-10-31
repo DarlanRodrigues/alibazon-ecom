@@ -27,7 +27,6 @@
                       <div class="d-flex flex-column">
                         <a class="btn btn-primary" href="/product/<%= product.id %>" role="button">Details</a>
                         <% if( typeof locals.loggedUser !== 'undefined') { %>
-                          <a class="btn btn-outline-warning mt-1 btn-add-wishlist" data-product_id=<%= product.id || '' %> data-product_variant_id=<%= (typeof product.variants[0] !== "undefined")? product.variants[0].product_id : '' %> data-product_quantity="1" role="button">Add to wishlist</a>
                           <a class="btn btn-success mt-1 btn-add-cart" data-product_id=<%= product.id %> data-product_variant_id=<%= (typeof product.variants[0] !== "undefined")? product.variants[0].product_id : '' %> data-product_quantity="1" href="#" role="button">Add to cart</a>
                         <% } %>
                         
