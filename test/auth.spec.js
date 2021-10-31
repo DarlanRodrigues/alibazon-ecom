@@ -14,6 +14,14 @@ describe('/POST Auth/Signin', () => {
   })
 })
 
+describe('/GET Auth/logout', () => {
+  it('it should logout', async () => {
+    const res = await request(app)
+      .get('/auth/logout')
+    expect(res.statusCode).toEqual(302)
+  })
+})
+
 describe('Check method sign in', () => {
   it('it should return logged user info', async () => {
     const response = await signIn(mockUser);

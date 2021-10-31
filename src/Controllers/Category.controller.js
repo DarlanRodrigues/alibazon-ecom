@@ -13,7 +13,7 @@ export const getAllCategories = async () => {
         return categories.data;
     } catch(error){
         new Error(error.response);
-        return {};
+        return error.response;
     }
 }
 
@@ -28,7 +28,7 @@ export const getCategoriesByParentId = async (parentId = 'root') => {
         return categories.data;
     } catch(error){
         new Error(error.response);
-        return {};
+        return error.response;
     }
 }
 
@@ -44,6 +44,6 @@ export const getCategoryById = async (categoryId = 'root') => {
         return category.data;
     } catch(error){
         new Error(error.response);
-        return {};
+        return error.response;
     }
 }

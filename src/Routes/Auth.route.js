@@ -114,7 +114,7 @@ router.post('/signin', [
 });
 
 
-router.post('/logout',  (req, res, next) => {
+router.get('/logout',  (req, res, next) => {
   res
     .clearCookie("logged_user")
     .status(200)
